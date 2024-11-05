@@ -1,0 +1,21 @@
+<app-ticker-form (addTicker)="onAddTicker($event)"></app-ticker-form>
+
+<hr class="w-full border-t border-gray-600 my-4" />
+    <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3 ">
+      <app-ticker-card
+      *ngFor="let ticker of tickers"
+      [ticker]="ticker"
+      (deleteTicker)="onTickerDelete($event)"
+      (viewChart)="onViewChart($event)"
+      >
+      </app-ticker-card>
+      
+    </dl>
+<hr class="w-full border-t border-gray-600 my-4" />
+
+<app-ticker-chart 
+*ngIf="selectedChart" 
+[normalizedPrices]="normalizedPrices"
+[selectedChart]="selectedChart"
+></app-ticker-chart>
+
