@@ -1,24 +1,26 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Ticker } from '../../data/interfaces/ticker.interface';
-import { UpperCasePipe } from '@angular/common';
+import { NgClass, UpperCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-ticker-card',
   standalone: true,
-  imports: [UpperCasePipe],
+  imports: [UpperCasePipe, NgClass],
   templateUrl: './ticker-card.component.html',
   styleUrl: './ticker-card.component.css'
 })
 export class TickerCardComponent {
-  @Input() ticker!: Ticker 
+  @Input() displayedTickers!: Ticker;
+  @Input() selectedBorder?: string | null;
   @Output() deleteTicker  = new EventEmitter<number>();
   @Output() viewChart  = new EventEmitter<number>();
 
   OnDelete(){
-    this.deleteTicker.emit(this.ticker.id)
+    this.deleteTicker.emit(this.displayedTickers.id)
   }
 
   OnviewChart(){
-    this.viewChart.emit(this.ticker.id)
+    this.viewChart.emit(this.displayedTickers.id)
+    this.selectedBorder = this.displayedTickers.tickerName
   }
 }

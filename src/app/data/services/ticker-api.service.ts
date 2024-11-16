@@ -10,12 +10,20 @@ export class TickerApiService {
 
   getDataPrice(tickerName: string): Observable<{ USD: number } | { Response: string, Message: string }> {
     return this.http.get<{ USD: number } | { Response: string, Message: string }>(
-      `https://min-api.cryptocompare.com/data/price?fsym=${tickerName}&tsyms=USD&api_key=ce3fd966e7a1d10d65f907b20bf000552158fd3ed1bd614110baa0ac6cb57a7e`
+      `https://min-api.cryptocompare.com/data/price?fsym=${tickerName}&tsyms=USD&api_key=164001b8d87df66e009c9af61f5ab45cd2ae58885470c8508a93517e988b6356`
     ).pipe(
       catchError(error => {
         console.error("Ошибка запроса к API:", error);
         return of({ Response: 'Error', Message: 'Ошибка сети или неверный тикер' });
       })
     );
+  }
+
+  getAllCoin() {
+    return this.http.get<any>('https://min-api.cryptocompare.com/data/blockchain/list', {
+      headers: {
+        'Authorization': 'Apikey 164001b8d87df66e009c9af61f5ab45cd2ae58885470c8508a93517e988b6356'
+      }
+    });
   }
 }

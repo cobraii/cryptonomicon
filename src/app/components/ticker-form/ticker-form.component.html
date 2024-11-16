@@ -12,28 +12,11 @@
             placeholder="Например DOGE"
           />
         </div>
-        <div
-          class="flex bg-white shadow-md p-1 rounded-md shadow-md flex-wrap"
-        >
-          <span
-            class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer"
-          >
-            BTC
-          </span>
-          <span
-            class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer"
-          >
-            DOGE
-          </span>
-          <span
-            class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer"
-          >
-            BCH
-          </span>
-          <span
-            class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer"
-          >
-            CHD
+        <div *ngIf="displayedCoinListName?.length"
+          class="flex bg-white shadow-md p-1 rounded-md shadow-md flex-wrap" >
+          <span (click)="valueInput(coin)" *ngFor="let coin of displayedCoinListName | slice:0:4 " 
+            class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
+            {{coin}}
           </span>
         </div>
         <div *ngIf="isTickerExists" class="text-sm text-red-600">

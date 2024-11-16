@@ -1,16 +1,38 @@
-<app-ticker-form (addTicker)="onAddTicker($event)"></app-ticker-form>
+<app-loading-spinner
+*ngIf="isLoading$ | async">
+</app-loading-spinner>
+
+<app-ticker-form
+[displayedCoinListName]="displayedCoinListName"
+[formControl]="tickerName"
+(addTicker)="onAddTicker($event)"
+></app-ticker-form>
 
 <hr class="w-full border-t border-gray-600 my-4" />
     <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3 ">
       <app-ticker-card
-      *ngFor="let ticker of tickers"
-      [ticker]="ticker"
+      *ngFor="let displayedTickers of displayedTickers"
+      [displayedTickers]="displayedTickers"
       (deleteTicker)="onTickerDelete($event)"
       (viewChart)="onViewChart($event)"
+      [selectedBorder]="selectedChart"
       >
       </app-ticker-card>
-      
     </dl>
+    <nav aria-label="Page navigation example" class="mt-5 flex justify-center items-center">
+      <ul class="list-style-none flex">
+        <li 
+        *ngFor="let page of pages"
+        (click)="changePage(page)"
+        >
+          <a
+            class="relative block rounded bg-transparent px-3 py-1.5 text-sm text-surface transition duration-300 hover:bg-neutral-100 focus:bg-neutral-100 focus:text-primary-700 focus:outline-none active:bg-neutral-100 active:text-primary-700 dark:text-dark dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:focus:text-primary-500 dark:active:bg-neutral-700 dark:active:text-primary-500"
+            href="#"
+            >{{page}}</a
+          >
+        </li>
+      </ul>
+    </nav>
 <hr class="w-full border-t border-gray-600 my-4" />
 
 <app-ticker-chart 
